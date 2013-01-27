@@ -21,7 +21,7 @@ def rel(*parts):
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../")))
 
-site.addsitedir(rel('<%= @current %>','venv', 'lib', '<%= @python_version %>', 'site-packages'))
+site.addsitedir(rel('<%= @venv %>', 'lib', '<%= @python_version %>', 'site-packages'))
 sys.path.append('<%= @current %>')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'current.settings'
 

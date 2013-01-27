@@ -12,6 +12,18 @@ action :create do
 
   uwsgi_template = uwsgi_new_resource.uwsgi_template
   spawner_template = uwsgi_new_resource.spawner_template
+  wsgi_template = uwsgi_new_resource.wsgi_template
+
+  wsgi "#{node["multiqa"]["uwsgi"]["wsgi"]}" do
+    template wsgi_template
+    user uwsgi_new_resource.user
+    group uwsgi_new_resource.group
+    path uwsgi_new_resource.wsgi
+    config({
+             :current => uwsgi_new_resource.home,
+             :project_root => uwsgi_new_resource.home}.merge(config))
+    cookbook uwsgi_new_resource.cookbook
+  end
 
   uwsgi_conf uwsgi_new_resource.name do
     template uwsgi_template
@@ -38,6 +50,11 @@ action :create do
     group uwsgi_new_resource.group
 
     cookbook uwsgi_new_resource.cookbook
+  end
+
+  service new_resource.name do
+    supports :status => true, :restart => true, :reload => true
+    action :nothing
   end
 end
 

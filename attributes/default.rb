@@ -37,7 +37,8 @@ default["uwsgi"]["config"] = {
   "log-5xx" => false,
   "log-4xx" => false,
   "harakiri" => 60,
-  "reload-mercy" => 8
+  "reload-mercy" => 8,
+  "python_version" => "python2.6"
 }
 
 default["uwsgi"]["logs_dir"] = "/var/log/uwsgi"

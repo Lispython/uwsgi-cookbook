@@ -28,6 +28,7 @@ attribute :logfile, :kind_of => String
 
 attribute :spawner_template, :kind_of => String, :default => "spawner.erb"
 attribute :uwsgi_template, :kind_of => String, :default => "uwsgi.conf.erb"
+attribute :wsgi_template, :kind_of => String, :default => "wsgi.erb"
 
 def initialize(*args)
   super
