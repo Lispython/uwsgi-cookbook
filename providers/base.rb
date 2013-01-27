@@ -9,6 +9,6 @@ action :create do
     Chef::Log.info("#{@current_resource} already exist")
   end
 
-  config = Chef::Mixin::DeepMerge.merge(node["uwsgh"]["deafult"].to_hash, new_resource.config)
+  config = Chef::Mixin::DeepMerge.merge(node["uwsgi"]["config"].to_hash, new_resource.config)
 
 end

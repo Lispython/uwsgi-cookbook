@@ -14,10 +14,16 @@ node["uwsgi"]["install"]["req"].each do |pkg|
   package pkg
 end
 
-uwsgi_install "name" do
-  if node["uwsgi"]["install"]["method"] == "source"
+if node["uwsgi"]["install"]["method"] == "source"
+  include_recipe "python"
+  uwsgi_install "uwsgi" do
+    version node["uwsgi"]["version"]
     provider Chef::Provider::UwsgiSource
-  else
+  end
+
+else
+  uwsgi_install "uwsgi" do
+    version node["uwsgi"]["version"]
     provider Chef::Provider::UwsgiPackage
   end
 end

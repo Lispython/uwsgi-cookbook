@@ -10,13 +10,13 @@
 # Global params
 
 default["uwsgi"]["install"]["req"] = %w(python-dev libxml2 libxml2-dev)
-default["uwsgi"]["install"]["method"] = "package"
+default["uwsgi"]["install"]["method"] = "source"
 
 default["uwsgi"]["install"]["location"] = "http://projects.unbit.it/downloads/"
 default["uwsgi"]["install"]['prefix'] = "uwsgi-"
 default["uwsgi"]["install"]["download_dir"] = "/tmp"
 
-default["uwsgi"]["version"] = "1.4.4"
+default["uwsgi"]["version"] = "1.4.2"
 default["uwsgi"]["user"] = "appuser"
 default["uwsgi"]["group"] = "appuser"
 default["uwsgi"]["provider"] = "uwsgi_base" # Launcher

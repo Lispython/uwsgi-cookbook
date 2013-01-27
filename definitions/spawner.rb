@@ -23,7 +23,9 @@ define :uwsgi_spawner, :name => nil, :template => "spawner.erb", :port => nil, :
     mode 0754
     action :create
 
-    variables :port => params[:port], :pidfile => params[:pidfile], :config_file => params[:config_file],
+    variables(:port => params[:port],
+              :pidfile => params[:pidfile],
+              :config_file => params[:config_file])
 
     # Specify location for template
     if params[:cookbook]
