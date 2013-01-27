@@ -6,4 +6,4 @@ RELESED=$(cat $RELESED_FILE)
 
 . <%= @virtualenv %>/bin/activate
 
-exec chpst -u <%= @user %>:<%= @group %> uwsgi -x <%= @config_file %> --procname <%= @name %>-$RELESED
+exec chpst uwsgi -x <%= @config_file %> --procname <%= @name %>-$RELESED
