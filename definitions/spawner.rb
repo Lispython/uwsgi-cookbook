@@ -9,7 +9,14 @@
 #
 
 
-define :uwsgi_spawner, :name => nil, :template => "spawner.erb", :pidfile => nil, :cookbook => nil, :config_file => nil, :path => nil, :released_file => nil do
+define :uwsgi_spawner,
+       :name => nil,
+       :template => "spawner.erb",
+       :pidfile => nil,
+       :cookbook => nil,
+       :config_file => nil,
+       :path => nil,
+       :released_file => nil do
 
   Chef::Log.info("Creating spawner at #{params[:path]} from #{params[:template]} for #{params[:name]} project")
 

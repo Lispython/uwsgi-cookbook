@@ -23,6 +23,7 @@ attribute :config_file, :kind_of => String
 attribute :released_file, :kind_of => String
 attribute :wsgi, :kind_of => String
 attribute :home, :kind_of => String
+attribute :venv, :kind_of => String
 attribute :pidfile, :kind_of => String
 attribute :logfile, :kind_of => String
 

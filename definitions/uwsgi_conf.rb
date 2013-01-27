@@ -19,6 +19,7 @@ define :uwsgi_conf,
        :cookbook => nil,
        :path => nil, # File path to locate generated uwsgi
        :home => nil,
+       :env => nil,
        :wsgi => nil,
        :logfile => nil,
        :pidfile => nil do
@@ -32,7 +33,8 @@ define :uwsgi_conf,
   config["logfile"] = params[:logfile] || "#{node["uwsgi"]["logs_dir"]}/#{params[:name]}.log"
   config["user"] = params[:user]
   config["group"] = params[:group]
-  config["env"] = params[:home]
+  config["home"] = params[:home]
+  config["env"] = params[:env]
 
   template params[:path] do
     owner params[:user]

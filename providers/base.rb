@@ -14,14 +14,22 @@ action :create do
   spawner_template = uwsgi_new_resource.spawner_template
   wsgi_template = uwsgi_new_resource.wsgi_template
 
+  config["current"] = uwsgi_new_resource.home,
+  config["project_root"] = uwsgi_new_resource.home
+  config["home"] = uwsgi_new_resource.home
+  config["env"] = uwsgi_new_resource.venv
+  config["user"] = uwsgi_new_resource.user
+  config["group"] = uwsgi_new_resource.group
+  config["logfile"] = uwsgi_new_resource.logfile || "#{node["uwsgi"]["logs_dir"]}/#{uwsgi_new_resource.name}.log"
+  config["pidfile"] = uwsgi_new_resource.pidfile
+
+
   wsgi "#{node["multiqa"]["uwsgi"]["wsgi"]}" do
     template wsgi_template
     user uwsgi_new_resource.user
     group uwsgi_new_resource.group
     path uwsgi_new_resource.wsgi
-    config({
-             :current => uwsgi_new_resource.home,
-             :project_root => uwsgi_new_resource.home}.merge(config))
+    config({"config" => config})
     cookbook uwsgi_new_resource.cookbook
   end
 
@@ -30,6 +38,7 @@ action :create do
     config config
     path uwsgi_new_resource.config_file
     home uwsgi_new_resource.home
+    env uwsgi_new_resource.venv
     wsgi uwsgi_new_resource.wsgi
     pidfile uwsgi_new_resource.pidfile
 
@@ -52,9 +61,18 @@ action :create do
     cookbook uwsgi_new_resource.cookbook
   end
 
-  service new_resource.name do
-    supports :status => true, :restart => true, :reload => true
-    action :nothing
+  link "/etc/init.d/#{uwsgi_new_resource.name}" do
+    to uwsgi_new_resource.spawner_file
+    link_type :hard
+  end
+
+  service uwsgi_new_resource.name do
+    supports :status => true, :restart => true, :start => true, :stop => true
+    action :enable
+    start_command "#{uwsgi_new_resource.spawner_file} start"
+    stop_command "#{uwsgi_new_resource.spawner_file} stop"
+    restart_command "#{uwsgi_new_resource.spawner_file} restart"
+    status_command "#{uwsgi_new_resource.spawner_file} status"
   end
 end
 

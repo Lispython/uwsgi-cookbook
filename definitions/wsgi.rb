@@ -10,8 +10,14 @@
 # :github: http://github.com/Lispython/uwsgi-cookbook
 #
 
-define :wsgi, :name => nil, :template => "wsgi.erb", :config => {}, :user => "appuser", :group => "appuser",
-:cookbook => nil, :path => nil do
+define :wsgi,
+       :name => nil,
+       :template => "wsgi.erb",
+       :config => {},
+       :user => "appuser",
+       :group => "appuser",
+       :cookbook => nil,
+       :path => nil do
 
   Chef::Log.info("Making wsgi config for: #{params[:name]}")
 
