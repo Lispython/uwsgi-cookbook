@@ -16,7 +16,7 @@ default["uwsgi"]["install"]["location"] = "http://projects.unbit.it/downloads/"
 default["uwsgi"]["install"]['prefix'] = "uwsgi-"
 default["uwsgi"]["install"]["download_dir"] = "/tmp"
 
-default["uwsgi"]["version"] = "1.4.2"
+default["uwsgi"]["version"] = "1.4.4"
 default["uwsgi"]["user"] = "appuser"
 default["uwsgi"]["group"] = "appuser"
 default["uwsgi"]["provider"] = "uwsgi_base" # Launcher
@@ -24,4 +24,11 @@ default["uwsgi"]["provider"] = "uwsgi_base" # Launcher
 
 # Config parameters
 # MAIN
-default["uwsgi"]["config"] = {}
+default["uwsgi"]["config"] = {
+  "processes" => 4,
+  "user" => node["uwsgi"]["user"],
+  "group" => node["uwsgi"]["group"],
+}
+
+default["uwsgi"]["logs_dir"] = "/var/log/uwsgi"
+default["uwsgi"]["pids_dir"] = "/tmp"

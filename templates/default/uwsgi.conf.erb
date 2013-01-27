@@ -1,0 +1,20 @@
+<uwsgi>
+  <% if @options[:socket] %>
+    <socket><%= @options[:socket] %></socket>
+  <% else %>
+    <socket><%= @options[:host]%><%= @options[:port] %></socket>
+  <% end %>
+  <pythonpath><%= @options[:pythonpath] %></pythonpath>
+  <processes><%= @options[:processes] %></processes>
+  <master/>
+  <home><%= @options[:env] %></home>
+  <wsgi-file><%= @options[:wsgi] %></wsgi-file>
+  <gid><%= @options[:user] %></gid>
+  <uid><%= @options[:group] %></uid>
+  <% if @options[:log_master] %>
+  <log-master />
+  <daemonize/>
+  <% else %>
+  <daemonize><%= @options[:logfile] %></daemonize>
+  <% end %>
+</uwsgi>

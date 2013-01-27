@@ -9,23 +9,28 @@
 #
 
 
-define :uwsgi_spawner, :name => nil, :template => "spawner.erb", :port => nil, :host => nil, :pidfile => nil, :cookbook => nil, :config_file => nil,:path => nil do
+define :uwsgi_spawner, :name => nil, :template => "spawner.erb", :pidfile => nil, :cookbook => nil, :config_file => nil, :path => nil, :released_file => nil do
 
-  Chef::Log.info("Creating uwsgi init.d at : #{params[:path]} from #{params[:template]}")
+  Chef::Log.info("Creating spawner at #{params[:path]} from #{params[:template]} for #{params[:name]} project")
 
-  path = params[:path]
+  path = params[:path] || params[:name]
 
   # Making init.d script
-  template params[:path] do
+  template path do
     owner params[:user]
     group params[:group]
     source params[:template]
     mode 0754
     action :create
 
-    variables(:port => params[:port],
+    variables(
+              :name => params[:name],
+              :user => params[:user],
+              :group => params[:group],
               :pidfile => params[:pidfile],
-              :config_file => params[:config_file])
+              :config_file => params[:config_file],
+              :released_file => params[:released_file]
+              )
 
     # Specify location for template
     if params[:cookbook]

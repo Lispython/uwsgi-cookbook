@@ -1,7 +1,11 @@
 #!/bin/sh
 set -e
 
+PROJECT_PATH="<%= @project_path %>"
+RELESED_FILE="<%= @relesed_file %>"
+RELESED=$(cat $RELESED_FILE)
+#RELESED=$(date +%Y%m%d%H%M%S)
 
 . <%= @virtualenv %>/bin/activate
 
-DJANGO_SETTINGS_MODULE=settings.chefenv exec chpst -u <%= @user %>:<%= @group %> uwsgi -x <%= @config_file %>
+DJANGO_SETTINGS_MODULE=settings.chefenv exec chpst -u <%= @user %>:<%= @group %> uwsgi -x <%= @config_file %> --procname <%= @name %>-$RELESED

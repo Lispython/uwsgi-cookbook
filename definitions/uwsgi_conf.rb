@@ -10,7 +10,43 @@
 # :github: http://github.com/Lispython/uwsgi-cookbook
 #
 
-define :uwsgi_conf, :name => nil, :template => "uwsgi.conf.erb", :config => {}, :user => "appuser", :group => "appuser", :cookbook => nil do
+define :uwsgi_conf,
+       :name => nil,
+       :template => "uwsgi.conf.erb",
+       :config => {},
+       :user => "appuser",
+       :group => "appuser",
+       :cookbook => nil,
+       :path => nil,
+       :wsgi => nil,
+       :logfile => nil,
+       :pidfile => nil do
 
   Chef::Log.info("Making uwsgi config for: #{params[:name]}")
+
+  config = params[:config]
+  config = Chef::Mixin::DeepMerge.merge(node["uwsgi"]["config"].to_hash, params[:config])
+
+  config["wsgi"] = params[:wsgi]
+  config["pidfile"] = params[:pidfile]
+  config["logfile"] = params[:logfile] || "#{node["uwsgi"]["logs_dir"]}/#{params[:name]}.log"
+  config["user"] = params[:user]
+  config["group"] = params[:group]
+  config["env"] = params[:home]
+
+  template params[:path] do
+    owner params[:user]
+    group params[:group]
+    source params[:template]
+    mode 0754
+    action :create
+    variables(:options => config)
+
+    # Specify location for template
+    if params[:cookbook]
+      cookbook params[:cookbook]
+    else
+      cookbook "uwsgi"
+    end
+  end
 end
