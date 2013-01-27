@@ -18,11 +18,16 @@ attribute :user, :kind_of => String, :default => "appuser"
 attribute :group, :kind_of => String, :default => "appuser"
 attribute :config, :kind_of => Hash, :default => {}
 attribute :cookbook, :kind_of => String
-attribute :spawner_path, :kind_of => String # Path to spawner file
+attribute :spawner_file, :kind_of => String # Path to spawner file
+attribute :config_file, :kind_of => String
 attribute :released_file, :kind_of => String
 attribute :wsgi, :kind_of => String
-attribute :path, :kind_of => String
+attribute :home, :kind_of => String
 attribute :pidfile, :kind_of => String
+attribute :logfile, :kind_of => String
+
+attribute :spawner_template, :kind_of => String, :default => "spawner.erb"
+attribute :uwsgi_template, :kind_of => String, :default => "uwsgi.conf.erb"
 
 def initialize(*args)
   super

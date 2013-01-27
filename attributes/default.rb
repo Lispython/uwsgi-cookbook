@@ -17,8 +17,8 @@ default["uwsgi"]["install"]['prefix'] = "uwsgi-"
 default["uwsgi"]["install"]["download_dir"] = "/tmp"
 
 default["uwsgi"]["version"] = "1.4.4"
-default["uwsgi"]["user"] = "appuser"
-default["uwsgi"]["group"] = "appuser"
+default["uwsgi"]["user"] = "www-data"
+default["uwsgi"]["group"] = "www-data"
 default["uwsgi"]["provider"] = "uwsgi_base" # Launcher
 
 
@@ -28,6 +28,16 @@ default["uwsgi"]["config"] = {
   "processes" => 4,
   "user" => node["uwsgi"]["user"],
   "group" => node["uwsgi"]["group"],
+  "no-orphas" => true,
+  "log-master" => true,
+  "master" => true,
+  "reload-on-as" => 128,
+  "memory-report" => true,
+  "log-slow" => 30,
+  "log-5xx" => false,
+  "log-4xx" => false,
+  "harakiri" => 60,
+  "reload-mercy" => 8
 }
 
 default["uwsgi"]["logs_dir"] = "/var/log/uwsgi"

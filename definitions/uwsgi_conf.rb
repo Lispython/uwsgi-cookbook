@@ -17,14 +17,14 @@ define :uwsgi_conf,
        :user => "appuser",
        :group => "appuser",
        :cookbook => nil,
-       :path => nil,
+       :path => nil, # File path to locate generated uwsgi
+       :home => nil,
        :wsgi => nil,
        :logfile => nil,
        :pidfile => nil do
 
   Chef::Log.info("Making uwsgi config for: #{params[:name]}")
 
-  config = params[:config]
   config = Chef::Mixin::DeepMerge.merge(node["uwsgi"]["config"].to_hash, params[:config])
 
   config["wsgi"] = params[:wsgi]
