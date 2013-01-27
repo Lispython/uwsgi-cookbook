@@ -18,6 +18,11 @@ end
 
 action :uninstall do
   Chef::Log.info("Uninstall uWSGI")
+
+  python_pip "uwsgi" do
+    action :remove
+    version node["uwsgi"]["version"]
+  end
 end
 
 

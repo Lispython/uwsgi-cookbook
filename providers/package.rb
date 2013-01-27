@@ -14,8 +14,18 @@ action :install do
     end
 
     package "uwsgi" do
+      version node["uwsgi"]["version"]
       action :install
     end
+  end
+end
+
+action :uninstall do
+  Chef::Log.info("Uninstall uWSGI")
+
+  package "uwsgi" do
+    action :remove
+    version node["uwsgi"]["version"]
   end
 end
 
@@ -37,7 +47,7 @@ def version
   if uwsgi_exists?
     uwsgi_version = Chef::ShellOut.new("uwsgi --version")
     uwsgi_version.run_command
-    version = uwsgi_version.stdout[/uWSGI (\d*.\d*.\d*)/,1] || uwsgi_version.stdout[/v=(\d*.\d*.\d*)/,1]
+    version = uwsgi_version.stdout[/uWSGI (\d*.\d*.\d*)/,1] || uwsgi_version.stdout[/(\d*.\d*.\d*)/,1]
     Chef::Log.info("The uWSGI server version is: #{version}")
     return version.gsub("\n",'')
   end
