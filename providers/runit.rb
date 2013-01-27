@@ -76,9 +76,8 @@ action :create do
     action :nothing
     options(:user => uwsgi_new_resource.user,
             :group => uwsgi_new_resource.group,
-            :virtualenv =>  uwsgi_new_resource.venv,
+            :virtualenv => uwsgi_new_resource.venv,
             :logfile => uwsgi_new_resource.logfile,
-            :pidfile => pidfile,
             :option => config,
             :released_file => uwsgi_new_resource.released_file,
             :config_file => uwsgi_new_resource.config_file)
