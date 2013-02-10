@@ -36,6 +36,16 @@ define :uwsgi_conf,
   config["home"] = params[:home]
   config["env"] = params[:env]
 
+  directory File.dirname(config["logfile"]) do
+    recursive true
+    action :create
+    owner params[:user]
+    group params[:group]
+    not_if do
+      ::File.exist?("#{config[:logfile]}")
+    end
+  end
+
   template params[:path] do
     owner params[:user]
     group params[:group]

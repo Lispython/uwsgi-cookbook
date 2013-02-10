@@ -8,7 +8,7 @@ USER_GROUP="<%=@user %>:<%= @group %>"
 RELEASED_FILE="<%= @released_file %>"
 RELEASED=$(cat $RELEASED_FILE)
 
-EXEC="uwsgi"
+EXEC="/usr/local/bin/uwsgi"
 EXEC_ARGS="-x <%= @config_file %> --procname $PROJECT_NAME-$RELEASED"
 
 usage(){
