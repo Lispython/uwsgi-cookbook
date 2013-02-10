@@ -16,6 +16,7 @@
   <% end %>
 
   <home><%= @options["env"] %></home>
+  <chdir><%= @options['home'] %></chdir>
   <venv><%= @options["env"] %></venv>
 
   <wsgi-file><%= @options["wsgi"] %></wsgi-file>
@@ -43,6 +44,7 @@
   <% if @options["no-orphas"] %>
   <no-orphans />
   <% end %>
+
 
   <% if @options["workers"] %>
   <workers><%= @options["workers"] %></workers>

@@ -19,11 +19,14 @@ PROJECT_ROOT = os.path.normpath("<%= @config["home"] %>")
 def rel(*parts):
     return os.path.join(PROJECT_ROOT, *parts)
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../")))
+sys.path.insert(0, os.path.abspath(os.path.join("<%= @config["home"] %>", "../")))
 
-site.addsitedir(rel('<%= @config["env"] %>', 'lib', '<%= @config["python_version"] %>', 'site-packages'))
+site.addsitedir(os.path.join('<%= @config["env"] %>', 'lib', '<%= @config["python_version"] %>', 'site-packages'))
 sys.path.append('<%= @config["home"] %>')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'current.settings'
+
+from pprint import pprint
+pprint(sys.path)
 
 import django.core.handlers.wsgi
 

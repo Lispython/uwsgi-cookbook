@@ -69,7 +69,7 @@ action :create do
            :options => config,
            :pidfile => uwsgi_new_resource.pidfile)
     cookbook uwsgi_new_resource.cookbook || "uwsgi"
-    monit_action "stop"
+    monit_action "start"
   end
 end
 
