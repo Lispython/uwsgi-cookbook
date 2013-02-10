@@ -25,9 +25,6 @@ site.addsitedir(os.path.join('<%= @config["env"] %>', 'lib', '<%= @config["pytho
 sys.path.append('<%= @config["home"] %>')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'current.settings'
 
-from pprint import pprint
-pprint(sys.path)
-
 import django.core.handlers.wsgi
 
 application = django.core.handlers.wsgi.WSGIHandler()
