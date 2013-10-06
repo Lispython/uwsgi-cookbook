@@ -1,9 +1,9 @@
 #!/bin/sh
 set -e
 
-RELEASED_FILE="<%= @released_file %>"
+RELEASED_FILE="<%= @options[:released_file] %>"
 RELEASED=$(cat $RELESED_FILE)
 
-. <%= @virtualenv %>/bin/activate
+. <%= @options[:virtualenv] %>/bin/activate
 
-exec chpst /usr/local/bin/uwsgi -x <%= @config_file %> --procname <%= @name %>-$RELESED
+exec chpst /usr/local/bin/uwsgi -x <%= @options[:config_file] %> --procname <%= @options[:name] %>-$RELESED

@@ -61,27 +61,18 @@ action :create do
     cookbook uwsgi_new_resource.cookbook
   end
 
-  monit_conf "#{uwsgi_new_resource.name}" do
-    template "uwsgi-monit.erb"
-    config(:name => uwsgi_new_resource.name,
-           :start_command => "#{uwsgi_new_resource.spawner_file} start",
-           :stop_command => "#{uwsgi_new_resource.spawner_file} stop",
-           :options => config,
-           :pidfile => uwsgi_new_resource.pidfile)
-    cookbook uwsgi_new_resource.cookbook || "uwsgi"
-  end
-
   runit_service uwsgi_new_resource.name do
-    template_name "uwsgi"
-    action :nothing
+    template_name uwsgi_new_resource.name
+    action :enable
     options(:user => uwsgi_new_resource.user,
             :group => uwsgi_new_resource.group,
             :virtualenv => uwsgi_new_resource.venv,
             :logfile => uwsgi_new_resource.logfile,
-            :option => config,
+            :options => config,
+            :name => uwsgi_new_resource.name,
             :released_file => uwsgi_new_resource.released_file,
             :config_file => uwsgi_new_resource.config_file)
-    cookbook uwsgi_new_resource.cookbook || "uwsgi"
+    # cookbook uwsgi_new_resource.name
   end
 end
 
