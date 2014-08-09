@@ -24,7 +24,7 @@ action :create do
   config["pidfile"] = uwsgi_new_resource.pidfile
 
 
-  wsgi "#{node["multiqa"]["uwsgi"]["wsgi"]}" do
+  wsgi "#{uwsgi_new_resource.name}" do
     template wsgi_template
     user uwsgi_new_resource.user
     group uwsgi_new_resource.group
