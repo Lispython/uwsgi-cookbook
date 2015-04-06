@@ -68,6 +68,7 @@ action :create do
             :group => uwsgi_new_resource.group,
             :virtualenv => uwsgi_new_resource.venv,
             :logfile => uwsgi_new_resource.logfile,
+            :pidfile => uwsgi_new_resource.pidfile,
             :options => config,
             :name => uwsgi_new_resource.name,
             :released_file => uwsgi_new_resource.released_file,

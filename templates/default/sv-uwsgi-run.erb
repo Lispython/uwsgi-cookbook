@@ -2,8 +2,10 @@
 set -e
 
 RELEASED_FILE="<%= @options[:released_file] %>"
-RELEASED=$(cat $RELESED_FILE)
+RELEASED=$(cat $RELEASED_FILE)
+TARGET_USER=<%= @options[:user] %>
+
 
 . <%= @options[:virtualenv] %>/bin/activate
 
-exec chpst /usr/local/bin/uwsgi -x <%= @options[:config_file] %> --procname <%= @options[:name] %>-$RELESED
+DJANGO_SETTINGS_MODULE=settings.release_settings exec chpst -u $TARGET_USER uwsgi -x <%= @options[:config_file] %> --procname <%= @options[:name] %>-$RELEASED

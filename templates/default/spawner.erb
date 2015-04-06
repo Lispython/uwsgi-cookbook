@@ -49,7 +49,7 @@ stop(){
             sleep 1
         done
 
-        kill -9 `ps -eo pid,args | grep "multiqa-backend" | cut -c1-6`
+        kill -9 `ps -eo pid,args | grep "<%= @name %>" | cut -c1-6`
 		rm -f $PIDFILE
 		rm -f $SOCKFILE
     else

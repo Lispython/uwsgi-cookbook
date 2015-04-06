@@ -14,11 +14,17 @@ application = django.core.handlers.wsgi.WSGIHandler()
 <% if @config["sentry_dsn"] %>
 try:
     from raven import Client
-    from raven.middleware import Sentry
+    try:
+        from raven.contrib.django.raven_compat.middleware.wsgi import Sentry
+    except ImportError:
+        from raven.middleware import Sentry
 except ImportError:
     Client = Sentry = None
 
 if Client:
     # Low lever error handling
-    application = Sentry(application, Client('<%= @config["sentry_dsn"] %>'))
+    try:
+        application = Sentry(application, Client('<%= @config["sentry_dsn"] %>'))
+    except Exception:
+        application = Sentry(application)
 <% end %>
