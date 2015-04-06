@@ -31,7 +31,6 @@
 
   <% if @options["log-master"] %>
   <log-master />
-  <daemonize />
   <% else %>
   <daemonize><%= @options["logfile"] %></daemonize>
   <logto><%= @options["logfile"] %></logto>
@@ -71,4 +70,8 @@
   <% if @options["memory-report"] %><memory-report /><% end %>
 
   <% if @options["reload-on-as"] %><reload-on-as><%= @options["reload-on-as"] %></reload-on-as><% end %>
+
+  <% if @options["single-interpreter"] %><single-interpreter /><% end %>
+
+  <% if @options["buffer-size"] %><buffer-size><%= @options["buffer-size"] %></buffer-size><% end %>
 </uwsgi>

@@ -38,7 +38,8 @@ default["uwsgi"]["config"] = {
   "log-4xx" => false,
   "harakiri" => 60,
   "reload-mercy" => 8,
-  "python_version" => "python2.6"
+  "python_version" => "python2.6",
+  "buffer-size" => "32768"
 }
 
 default["uwsgi"]["logs_dir"] = "/var/log/uwsgi"
